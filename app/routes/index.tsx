@@ -20,18 +20,18 @@ export default function Index() {
           </a>
         </div>
       </nav>
-      <main className="relative container mx-auto mb-10 md:grid md:grid-cols-5">
+      <main className="relative container mx-auto mb-20 md:grid md:grid-cols-5">
         <section className="md:col-span-2 px-8 -ml-5">
           <h1 className="text-2xl font-bold tracking-tight">
             A layman's Total Compensation Calculator
           </h1>
-          <p className="mt-5 text-gray-400">
+          <p className="mt-5 text-gray-300">
             Understand your total compensation by factoring in company growth,
             competitor stock prices, and
           </p>
           <form action="" className="mt-10">
             <fieldset>
-              <legend className="text-sm text-gray-400">
+              <legend className="text-sm text-gray-300">
                 Cash Compensation
               </legend>
               <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
@@ -56,7 +56,7 @@ export default function Index() {
               </div>
             </fieldset>
             <fieldset className="mt-10">
-              <legend className="text-sm text-gray-400">
+              <legend className="text-sm text-gray-300">
                 Stock Compensation
               </legend>
               <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
@@ -75,7 +75,7 @@ export default function Index() {
               </div>
             </fieldset>
             <fieldset className="mt-10">
-              <legend className="text-sm text-gray-400">Company Details</legend>
+              <legend className="text-sm text-gray-300">Company Details</legend>
               <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
                 <FormField
                   className="rounded-b-none"

@@ -1,56 +1,51 @@
 import { useState } from "react";
 
-export const calculateBase = (base = "0") => {
-  return parseFloat(base);
+const baseData = [
+  {
+    year: "1",
+    base: 0,
+    bonus: 0,
+    stock: 0,
+  },
+  {
+    year: "2",
+    base: 0,
+    bonus: 0,
+    stock: 0,
+  },
+  {
+    year: "3",
+    base: 0,
+    bonus: 0,
+    stock: 0,
+  },
+  {
+    year: "4",
+    base: 0,
+    bonus: 0,
+    stock: 0,
+  },
+];
+
+const calculateBase = (base = "0") => {
+  return parseFloat(base || "0");
 };
 
-export const calculateBonus = (
-  year = "1",
-  signOnBonus = "0",
-  targetBonus = "0"
-) => {
-  if (year === "1") return parseFloat(signOnBonus) + parseFloat(targetBonus);
-  return parseFloat(targetBonus);
+const calculateBonus = (year = "1", signOnBonus = "0", targetBonus = "0") => {
+  if (year === "1")
+    return parseFloat(signOnBonus || "0") + parseFloat(targetBonus || "0");
+  return parseFloat(targetBonus || "0");
 };
 
-export const calculateStocks = (
-  shares = "0",
-  strikePrice = "0",
-  shareValue = "0"
-) => {
+const calculateStocks = (shares = "0", strikePrice = "0", shareValue = "0") => {
   return (
-    parseFloat(shares) * parseFloat(shareValue) -
-    parseFloat(shares) * parseFloat(strikePrice)
+    parseFloat(shares || "0") * parseFloat(shareValue || "0") -
+    parseFloat(shares || "0") * parseFloat(strikePrice || "0")
   );
 };
 
 export const useCompHooks = () => {
-  const [data, setData] = useState([
-    {
-      year: "1",
-      base: 100000,
-      bonus: 20000,
-      stock: 30000,
-    },
-    {
-      year: "2",
-      base: 100000,
-      bonus: 0,
-      stock: 30000,
-    },
-    {
-      year: "3",
-      base: 100000,
-      bonus: 0,
-      stock: 30000,
-    },
-    {
-      year: "4",
-      base: 100000,
-      bonus: 0,
-      stock: 30000,
-    },
-  ]);
+  const [data, setData] = useState(baseData);
 
   const [base, setBase] = useState("");
   const [signOnBonus, setSignOnBonus] = useState("");
@@ -64,15 +59,13 @@ export const useCompHooks = () => {
   const [revenueMultiple, setRevenueMultiple] = useState("");
 
   const updateData = () => {
-    setData(
-      data.map((d) => {
-        return {
-          ...d,
-          base: calculateBase(base),
-          bonus: calculateBonus(d.year, signOnBonus, targetBonus),
-          stock: calculateStocks(shares, strikePrice, "70"),
-        };
-      })
+    setData((prevData) =>
+      prevData.map((d) => ({
+        ...d,
+        base: calculateBase(base),
+        bonus: calculateBonus(d.year, signOnBonus, targetBonus),
+        stock: calculateStocks(shares, strikePrice, "70"),
+      }))
     );
   };
 

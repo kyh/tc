@@ -38,14 +38,14 @@ export type BarStackProps = {
 };
 
 const base = "#059669";
-const bonus = "#0369a1";
+const bonus = "#0ea5e9";
 const stock = "#f59e0b";
 const defaultMargin = { top: 0, right: 0, bottom: 0, left: 0 };
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
-  backgroundColor: "rgba(0,0,0,0.9)",
-  color: "white",
+  backgroundColor: "rgba(0,0,0,0.8)",
+  borderRadius: "0.5rem",
 };
 
 let tooltipTimeout: number;
@@ -56,6 +56,8 @@ export default function Chart({
   height,
   margin = defaultMargin,
 }: BarStackProps) {
+  console.log(data);
+
   const {
     tooltipOpen,
     tooltipLeft,
@@ -117,7 +119,6 @@ export default function Chart({
           height={yMax}
           stroke="white"
           strokeOpacity={0.1}
-          xOffset={xScale.bandwidth() / 2}
         />
         <Group top={margin.top}>
           <BarStack
@@ -167,7 +168,7 @@ export default function Chart({
           tickStroke="#64748b"
           tickLabelProps={() => ({
             fill: "#64748b",
-            fontSize: 11,
+            fontSize: 10,
             textAnchor: "middle",
           })}
         />
@@ -178,16 +179,20 @@ export default function Chart({
           left={tooltipLeft}
           style={tooltipStyles}
         >
-          <p>{tooltipData.key}</p>
+          <p className="text-xs text-slate-400">
+            Year {tooltipData.bar.data["year"]}
+          </p>
+          <p className="mt-1 text-xs text-slate-50 capitalize">
+            {tooltipData.key} compensation
+          </p>
           <NumberFormat
+            style={{ color: colorScale(tooltipData.key) }}
+            className="text-xl mt-1"
             thousandSeparator
             displayType="text"
             prefix="$"
             value={tooltipData.bar.data[tooltipData.key]}
           />
-          <div>
-            <small>{JSON.stringify(tooltipData.bar.data)}</small>
-          </div>
         </TooltipInPortal>
       )}
     </div>

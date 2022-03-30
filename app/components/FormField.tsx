@@ -19,7 +19,7 @@ export const FormField = ({
     id: name,
     type: "text",
     className:
-      "block w-full border-0 p-0 text-slate-50 placeholder-slate-500 bg-transparent focus:ring-0",
+      "block w-full border-0 p-0 text-emerald-500 placeholder-slate-500 bg-transparent focus:ring-0",
     name,
     placeholder,
   };
@@ -32,7 +32,7 @@ export const FormField = ({
 
   return (
     <div
-      className={`relative border border-slate-600 rounded-md px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600 ${className}`}
+      className={`relative border border-slate-600 rounded-md px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-emerald-600 focus-within:border-emerald-600 ${className}`}
     >
       <label
         htmlFor={name}

@@ -23,6 +23,11 @@ const staticNumberFormatProps = {
 
 export default function Index() {
   const comp = useCompHooks();
+  const totalTc = comp.data.reduce<number>(
+    (acc, curr) => acc + curr.base + curr.bonus + curr.stock,
+    0
+  );
+  const avgTc = totalTc / comp.data.length;
 
   return (
     <>
@@ -90,7 +95,7 @@ export default function Index() {
               <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
                 <FormField
                   className="rounded-b-none"
-                  label="Number of shares"
+                  label="Number of stock options (per year)"
                   name="shares"
                   placeholder="1,000"
                 >
@@ -118,7 +123,7 @@ export default function Index() {
             </fieldset>
             <fieldset className="mt-10">
               <legend className="text-sm text-slate-300">
-                Company Details
+                Estimate Stock Value
               </legend>
               <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
                 <FormField
@@ -171,17 +176,21 @@ export default function Index() {
           </form>
         </section>
         <section className="md:col-span-3 px-20 -mr-5 sticky top-5 h-[600px]">
-          <p className="text-sm text-slate-300">
-            Estimated Total Compensation over 4 years
-          </p>
-          <p className="text-3xl font-bold tracking-tight mt-1">
-            <NumberFormat
-              value={1000000}
-              displayType="text"
-              thousandSeparator
-              prefix="$"
-            />
-          </p>
+          <p className="text-sm text-slate-400">Estimated Total Compensation</p>
+          <div className="flex justify-between items-center mt-1">
+            <div>
+              <NumberFormat
+                className="text-3xl font-bold tracking-tight"
+                value={avgTc}
+                displayType="text"
+                thousandSeparator
+                prefix="$"
+              />
+              {!!avgTc && (
+                <span className="text-xs ml-1 text-slate-400">(per year)</span>
+              )}
+            </div>
+          </div>
           <ParentSize className="mt-10">
             {({ width }) => (
               <Chart width={width} height={400} data={comp.data} />

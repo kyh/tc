@@ -24,7 +24,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-900 text-white bg-gradient-to-br from-slate-800 to-slate-900 min-h-screen">
+      <body className="bg-slate-900 text-white bg-gradient-to-br from-slate-800 via-slate-900 to-black min-h-screen">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

@@ -1,3 +1,4 @@
+import { RadioGroup } from "@headlessui/react";
 import NumberFormat from "react-number-format";
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { FormField } from "~/components/FormField";
@@ -38,8 +39,7 @@ export default function Index() {
             A layman's Total Compensation Calculator
           </h1>
           <p className="mt-5 text-slate-300">
-            Understand your startup total compensation by looking through a VC
-            lens.
+            Understand your total compensation through a VC lens.
           </p>
           <form action="" className="mt-10">
             <fieldset>
@@ -89,37 +89,89 @@ export default function Index() {
               </div>
             </fieldset>
             <fieldset className="mt-10">
-              <legend className="text-sm text-slate-300">
-                Stock Compensation
+              <legend className="flex justify-between w-full text-sm text-slate-300">
+                <span>Stock Compensation</span>
+                <RadioGroup
+                  className="flex gap-2"
+                  value={comp.shareType}
+                  onChange={(shareType) => {
+                    comp.setShareType(shareType);
+                    comp.setIso("");
+                    comp.setStrikePrice("");
+                    comp.setRsu("");
+                  }}
+                  onBlur={() => comp.updateData()}
+                >
+                  <RadioGroup.Option value="ISO">
+                    {({ checked }) => (
+                      <span
+                        className={`cursor-pointer ${
+                          checked ? "text-emerald-600" : ""
+                        }`}
+                      >
+                        ISO
+                      </span>
+                    )}
+                  </RadioGroup.Option>
+                  <RadioGroup.Option value="RSU">
+                    {({ checked }) => (
+                      <span
+                        className={`cursor-pointer ${
+                          checked ? "text-emerald-600" : ""
+                        }`}
+                      >
+                        RSU
+                      </span>
+                    )}
+                  </RadioGroup.Option>
+                </RadioGroup>
               </legend>
-              <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
-                <FormField
-                  className="rounded-b-none"
-                  label="Number of stock options (per year)"
-                  name="shares"
-                  placeholder="1,000"
-                >
-                  <NumberFormat
-                    {...staticNumberFormatProps}
-                    value={comp.shares}
-                    onValueChange={({ value }) => comp.setShares(value)}
-                    onBlur={() => comp.updateData()}
-                  />
-                </FormField>
-                <FormField
-                  className="rounded-t-none"
-                  label="Strike Price per share"
-                  name="strike"
-                  placeholder="$10"
-                >
-                  <NumberFormat
-                    {...currencyNumberFormatProps}
-                    value={comp.strikePrice}
-                    onValueChange={({ value }) => comp.setStrikePrice(value)}
-                    onBlur={() => comp.updateData()}
-                  />
-                </FormField>
-              </div>
+              {comp.shareType === "ISO" && (
+                <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+                  <FormField
+                    className="rounded-b-none"
+                    label="Stock options per year"
+                    name="shares"
+                    placeholder="1,000"
+                  >
+                    <NumberFormat
+                      {...staticNumberFormatProps}
+                      value={comp.iso}
+                      onValueChange={({ value }) => comp.setIso(value)}
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                  <FormField
+                    className="rounded-t-none"
+                    label="Strike Price per share"
+                    name="strike"
+                    placeholder="$10"
+                  >
+                    <NumberFormat
+                      {...currencyNumberFormatProps}
+                      value={comp.strikePrice}
+                      onValueChange={({ value }) => comp.setStrikePrice(value)}
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                </div>
+              )}
+              {comp.shareType === "RSU" && (
+                <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+                  <FormField
+                    label="Shares per year"
+                    name="shares"
+                    placeholder="1,000"
+                  >
+                    <NumberFormat
+                      {...staticNumberFormatProps}
+                      value={comp.rsu}
+                      onValueChange={({ value }) => comp.setRsu(value)}
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                </div>
+              )}
             </fieldset>
             <fieldset className="mt-10">
               <legend className="text-sm text-slate-300">
@@ -175,7 +227,11 @@ export default function Index() {
             </fieldset>
           </form>
         </section>
-        <section className="md:col-span-3 px-20 -mr-5 sticky top-5 h-[600px]">
+        <section
+          className={`md:col-span-3 px-20 -mr-5 sticky top-5 h-[600px] transition-opacity ${
+            avgTc ? "opacity-100" : "opacity-30 pointer-events-none"
+          }`}
+        >
           <p className="text-sm text-slate-400">Estimated Total Compensation</p>
           <div className="flex justify-between items-center mt-1">
             <div>

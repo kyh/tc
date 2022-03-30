@@ -51,8 +51,10 @@ export const useCompHooks = () => {
   const [signOnBonus, setSignOnBonus] = useState("");
   const [targetBonus, setTargetBonus] = useState("");
 
-  const [shares, setShares] = useState("");
+  const [shareType, setShareType] = useState("ISO");
+  const [iso, setIso] = useState("");
   const [strikePrice, setStrikePrice] = useState("");
+  const [rsu, setRsu] = useState("");
 
   const [sharesOutstanding, setSharesOutstanding] = useState("");
   const [expectedRevenue, setExpectedRevenue] = useState("");
@@ -64,7 +66,10 @@ export const useCompHooks = () => {
         ...d,
         base: calculateBase(base),
         bonus: calculateBonus(d.year, signOnBonus, targetBonus),
-        stock: calculateStocks(shares, strikePrice, "70"),
+        stock:
+          shareType === "ISO"
+            ? calculateStocks(iso, strikePrice, "70")
+            : calculateStocks(rsu, "0", "70"),
       }))
     );
   };
@@ -78,8 +83,12 @@ export const useCompHooks = () => {
     setSignOnBonus,
     targetBonus,
     setTargetBonus,
-    shares,
-    setShares,
+    shareType,
+    setShareType,
+    iso,
+    setIso,
+    rsu,
+    setRsu,
     strikePrice,
     setStrikePrice,
     sharesOutstanding,

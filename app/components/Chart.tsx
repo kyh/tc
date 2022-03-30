@@ -56,8 +56,6 @@ export default function Chart({
   height,
   margin = defaultMargin,
 }: BarStackProps) {
-  console.log(data);
-
   const {
     tooltipOpen,
     tooltipLeft,

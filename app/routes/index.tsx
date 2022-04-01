@@ -1,4 +1,4 @@
-import { RadioGroup } from "@headlessui/react";
+import { RadioGroup, Listbox } from "@headlessui/react";
 import NumberFormat from "react-number-format";
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { FormField } from "~/components/FormField";
@@ -102,7 +102,7 @@ export default function Index() {
                   }}
                   onBlur={() => comp.updateData()}
                 >
-                  <RadioGroup.Option value="ISO">
+                  <RadioGroup.Option value="iso">
                     {({ checked }) => (
                       <span
                         className={`cursor-pointer transition ${
@@ -113,7 +113,7 @@ export default function Index() {
                       </span>
                     )}
                   </RadioGroup.Option>
-                  <RadioGroup.Option value="RSU">
+                  <RadioGroup.Option value="rsu">
                     {({ checked }) => (
                       <span
                         className={`cursor-pointer transition ${
@@ -126,7 +126,7 @@ export default function Index() {
                   </RadioGroup.Option>
                 </RadioGroup>
               </legend>
-              {comp.shareType === "ISO" && (
+              {comp.shareType === "iso" && (
                 <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
                   <FormField
                     className="rounded-b-none"
@@ -156,7 +156,7 @@ export default function Index() {
                   </FormField>
                 </div>
               )}
-              {comp.shareType === "RSU" && (
+              {comp.shareType === "rsu" && (
                 <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
                   <FormField
                     label="Shares per year"
@@ -174,56 +174,132 @@ export default function Index() {
               )}
             </fieldset>
             <fieldset className="mt-10">
-              <legend className="text-sm text-slate-300">
-                Estimate Stock Value
+              <legend className="flex justify-between w-full text-sm text-slate-300">
+                <span>Estimate Stock Value</span>
+                <Listbox
+                  value={comp.shareCalcType}
+                  onChange={comp.setShareCalcType}
+                >
+                  <div className="relative">
+                    <Listbox.Button className="text-emerald-500">
+                      {comp.shareCalcType === "current"
+                        ? "Current Value"
+                        : comp.shareCalcType === "revenue"
+                        ? "Revenue Based"
+                        : null}
+                    </Listbox.Button>
+                    <Listbox.Options className="absolute z-10 w-[200px] right-0 mt-1 overflow-auto text-sm bg-black rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Listbox.Option
+                        value="current"
+                        className={({ active }) =>
+                          `cursor-pointer select-none relative py-2 px-4 ${
+                            active ? "text-emerald-100 bg-emerald-900" : ""
+                          }`
+                        }
+                      >
+                        Current Value
+                      </Listbox.Option>
+                      <Listbox.Option
+                        value="revenue"
+                        className={({ active }) =>
+                          `cursor-pointer select-none relative py-2 px-4 ${
+                            active ? "text-emerald-100 bg-emerald-900" : ""
+                          }`
+                        }
+                      >
+                        Revenue Based
+                      </Listbox.Option>
+                    </Listbox.Options>
+                  </div>
+                </Listbox>
               </legend>
-              <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
-                <FormField
-                  className="rounded-b-none"
-                  label="Shares Outstanding"
-                  name="outstanding"
-                  placeholder="10,000,000"
-                >
-                  <NumberFormat
-                    {...staticNumberFormatProps}
-                    value={comp.sharesOutstanding}
-                    onValueChange={({ value }) =>
-                      comp.setSharesOutstanding(value)
+              {comp.shareCalcType === "current" && (
+                <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+                  <FormField
+                    className="rounded-b-none"
+                    label={
+                      comp.shareType === "rsu"
+                        ? "Current Market Value"
+                        : "Preffered Stock Price"
                     }
-                    onBlur={() => comp.updateData()}
-                  />
-                </FormField>
-                <FormField
-                  className="rounded-none"
-                  label="Expected Company Revenue"
-                  name="revenue"
-                  placeholder="$100,000,000"
-                >
-                  <NumberFormat
-                    {...currencyNumberFormatProps}
-                    value={comp.expectedRevenue}
-                    onValueChange={({ value }) =>
-                      comp.setExpectedRevenue(value)
-                    }
-                    onBlur={() => comp.updateData()}
-                  />
-                </FormField>
-                <FormField
-                  className="rounded-t-none"
-                  label="Revenue Multiple"
-                  name="revenue-multiple"
-                  placeholder="15"
-                >
-                  <NumberFormat
-                    {...staticNumberFormatProps}
-                    value={comp.revenueMultiple}
-                    onValueChange={({ value }) =>
-                      comp.setRevenueMultiple(value)
-                    }
-                    onBlur={() => comp.updateData()}
-                  />
-                </FormField>
-              </div>
+                    name="preferredSharePrice"
+                    placeholder="$10.00"
+                  >
+                    <NumberFormat
+                      {...currencyNumberFormatProps}
+                      value={comp.preferredSharePrice}
+                      onValueChange={({ value }) =>
+                        comp.setPreferredSharePrice(value)
+                      }
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                  <FormField
+                    className="rounded-t-none"
+                    label="Expected Growth Multiple"
+                    name="revenue-multiple"
+                    placeholder="5"
+                  >
+                    <NumberFormat
+                      {...staticNumberFormatProps}
+                      value={comp.expectedGrowthMultiple}
+                      onValueChange={({ value }) =>
+                        comp.setExpectedGrowthMultiple(value)
+                      }
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                </div>
+              )}
+              {comp.shareCalcType === "revenue" && (
+                <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+                  <FormField
+                    className="rounded-b-none"
+                    label="Shares Outstanding"
+                    name="outstanding"
+                    placeholder="10,000,000"
+                  >
+                    <NumberFormat
+                      {...staticNumberFormatProps}
+                      value={comp.sharesOutstanding}
+                      onValueChange={({ value }) =>
+                        comp.setSharesOutstanding(value)
+                      }
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                  <FormField
+                    className="rounded-none"
+                    label="Expected Company Revenue"
+                    name="revenue"
+                    placeholder="$100,000,000"
+                  >
+                    <NumberFormat
+                      {...currencyNumberFormatProps}
+                      value={comp.expectedRevenue}
+                      onValueChange={({ value }) =>
+                        comp.setExpectedRevenue(value)
+                      }
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                  <FormField
+                    className="rounded-t-none"
+                    label="Revenue Multiple"
+                    name="revenue-multiple"
+                    placeholder="15"
+                  >
+                    <NumberFormat
+                      {...staticNumberFormatProps}
+                      value={comp.revenueMultiple}
+                      onValueChange={({ value }) =>
+                        comp.setRevenueMultiple(value)
+                      }
+                      onBlur={() => comp.updateData()}
+                    />
+                  </FormField>
+                </div>
+              )}
             </fieldset>
           </form>
         </section>

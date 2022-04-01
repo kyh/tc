@@ -178,7 +178,14 @@ export default function Index() {
                 <span>Estimate Stock Value</span>
                 <Listbox
                   value={comp.shareCalcType}
-                  onChange={comp.setShareCalcType}
+                  onChange={(shareCalcType) => {
+                    comp.setShareCalcType(shareCalcType);
+                    comp.setPreferredSharePrice("");
+                    comp.setExpectedGrowthMultiple("");
+                    comp.setSharesOutstanding("");
+                    comp.setExpectedRevenue("");
+                    comp.setRevenueMultiple("");
+                  }}
                 >
                   <div className="relative">
                     <Listbox.Button className="text-emerald-500">
@@ -317,6 +324,8 @@ export default function Index() {
                 displayType="text"
                 thousandSeparator
                 prefix="$"
+                decimalScale={2}
+                fixedDecimalScale
               />
               {!!avgTc && (
                 <span className="text-xs ml-1 text-slate-400">(per year)</span>

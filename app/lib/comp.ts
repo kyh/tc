@@ -38,10 +38,31 @@ const calculateBonus = (year = "1", signOnBonus = "0", targetBonus = "0") => {
 };
 
 const calculateStocks = (shares = "0", strikePrice = "0", shareValue = "0") => {
-  return (
+  const total =
     parseFloat(shares || "0") * parseFloat(shareValue || "0") -
-    parseFloat(shares || "0") * parseFloat(strikePrice || "0")
+    parseFloat(shares || "0") * parseFloat(strikePrice || "0");
+  return total > 0 ? total : 0;
+};
+
+const calculateShareValueFromMultiple = (
+  preferredSharePrice = "0",
+  multiple = "1"
+) => {
+  return String(
+    parseFloat(preferredSharePrice || "0") * parseFloat(multiple || "1")
   );
+};
+
+const calculateShareValueFromRevenue = (
+  sharesOutstanding = "0",
+  expectedRevenue = "0",
+  revenueMultiple = "0"
+) => {
+  const valuation =
+    parseFloat(expectedRevenue || "0") * parseFloat(revenueMultiple || "0");
+  const shareValue = valuation / parseInt(sharesOutstanding || "1");
+
+  return String(shareValue);
 };
 
 export const useCompHooks = () => {
@@ -70,15 +91,29 @@ export const useCompHooks = () => {
 
   const updateData = () => {
     setData((prevData) =>
-      prevData.map((d) => ({
-        ...d,
-        base: calculateBase(base),
-        bonus: calculateBonus(d.year, signOnBonus, targetBonus),
-        stock:
-          shareType === "iso"
-            ? calculateStocks(iso, strikePrice, "70")
-            : calculateStocks(rsu, "0", "70"),
-      }))
+      prevData.map((d) => {
+        const sv =
+          shareCalcType === "current"
+            ? calculateShareValueFromMultiple(
+                preferredSharePrice,
+                expectedGrowthMultiple
+              )
+            : calculateShareValueFromRevenue(
+                sharesOutstanding,
+                expectedRevenue,
+                revenueMultiple
+              );
+
+        return {
+          ...d,
+          base: calculateBase(base),
+          bonus: calculateBonus(d.year, signOnBonus, targetBonus),
+          stock:
+            shareType === "iso"
+              ? calculateStocks(iso, strikePrice, sv)
+              : calculateStocks(rsu, "0", sv),
+        };
+      })
     );
   };
 

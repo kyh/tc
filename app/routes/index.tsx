@@ -105,7 +105,7 @@ export default function Index() {
                   <RadioGroup.Option value="ISO">
                     {({ checked }) => (
                       <span
-                        className={`cursor-pointer ${
+                        className={`cursor-pointer transition ${
                           checked ? "text-emerald-600" : ""
                         }`}
                       >
@@ -116,7 +116,7 @@ export default function Index() {
                   <RadioGroup.Option value="RSU">
                     {({ checked }) => (
                       <span
-                        className={`cursor-pointer ${
+                        className={`cursor-pointer transition ${
                           checked ? "text-emerald-600" : ""
                         }`}
                       >

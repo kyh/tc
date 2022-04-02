@@ -322,12 +322,14 @@ export default function Index() {
           </form>
         </section>
         <section
-          className={`md:col-span-3 px-20 -mr-5 sticky top-5 h-screen overflow-scroll transition-opacity ${
+          className={`py-10 md:col-span-3 md:px-20 md:py-0 sticky top-5 h-screen overflow-scroll transition-opacity ${
             avgTc ? "opacity-100" : "opacity-30 pointer-events-none"
           }`}
         >
-          <p className="text-sm text-slate-400">Estimated Total Compensation</p>
-          <div className="flex justify-between items-center mt-1">
+          <p className="text-sm text-slate-400 px-3 md:px-0">
+            Estimated Total Compensation
+          </p>
+          <div className="flex justify-between items-center mt-1 px-3 md:px-0">
             <div>
               <NumberFormat
                 className="text-3xl font-bold tracking-tight"

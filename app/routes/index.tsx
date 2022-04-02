@@ -6,7 +6,7 @@ import { Navigation } from "~/components/Navigation";
 import Chart from "~/components/Chart";
 import { useCompHooks } from "~/lib/comp";
 
-const currencyNumberFormatProps = {
+const currencyInputFormatProps = {
   prefix: "$",
   decimalSeparator: ".",
   displayType: "input" as "input",
@@ -15,7 +15,18 @@ const currencyNumberFormatProps = {
   allowNegative: false,
 };
 
-const staticNumberFormatProps = {
+const currencyTextFormatProps = {
+  prefix: "$",
+  decimalSeparator: ".",
+  displayType: "text" as "text",
+  thousandSeparator: true,
+  isNumericString: true,
+  allowNegative: false,
+  decimalScale: 2,
+  fixedDecimalScale: true,
+};
+
+const staticInputFormatProps = {
   displayType: "input" as "input",
   thousandSeparator: true,
   isNumericString: true,
@@ -54,7 +65,7 @@ export default function Index() {
                   placeholder="$100,000.00"
                 >
                   <NumberFormat
-                    {...currencyNumberFormatProps}
+                    {...currencyInputFormatProps}
                     value={comp.base}
                     onValueChange={({ value }) => comp.setBase(value)}
                     onBlur={() => comp.updateData()}
@@ -67,7 +78,7 @@ export default function Index() {
                   placeholder="$10,000.00"
                 >
                   <NumberFormat
-                    {...currencyNumberFormatProps}
+                    {...currencyInputFormatProps}
                     value={comp.signOnBonus}
                     onValueChange={({ value }) => comp.setSignOnBonus(value)}
                     onBlur={() => comp.updateData()}
@@ -80,7 +91,7 @@ export default function Index() {
                   placeholder="$10,000.00"
                 >
                   <NumberFormat
-                    {...currencyNumberFormatProps}
+                    {...currencyInputFormatProps}
                     value={comp.targetBonus}
                     onValueChange={({ value }) => comp.setTargetBonus(value)}
                     onBlur={() => comp.updateData()}
@@ -135,7 +146,7 @@ export default function Index() {
                     placeholder="1,000"
                   >
                     <NumberFormat
-                      {...staticNumberFormatProps}
+                      {...staticInputFormatProps}
                       value={comp.iso}
                       onValueChange={({ value }) => comp.setIso(value)}
                       onBlur={() => comp.updateData()}
@@ -148,7 +159,7 @@ export default function Index() {
                     placeholder="$10"
                   >
                     <NumberFormat
-                      {...currencyNumberFormatProps}
+                      {...currencyInputFormatProps}
                       value={comp.strikePrice}
                       onValueChange={({ value }) => comp.setStrikePrice(value)}
                       onBlur={() => comp.updateData()}
@@ -164,7 +175,7 @@ export default function Index() {
                     placeholder="1,000"
                   >
                     <NumberFormat
-                      {...staticNumberFormatProps}
+                      {...staticInputFormatProps}
                       value={comp.rsu}
                       onValueChange={({ value }) => comp.setRsu(value)}
                       onBlur={() => comp.updateData()}
@@ -190,7 +201,7 @@ export default function Index() {
                   <div className="relative">
                     <Listbox.Button className="text-emerald-500">
                       {comp.shareCalcType === "current"
-                        ? "Current Value"
+                        ? "Growth Based"
                         : comp.shareCalcType === "revenue"
                         ? "Revenue Based"
                         : null}
@@ -204,7 +215,7 @@ export default function Index() {
                           }`
                         }
                       >
-                        Current Value
+                        Growth Based
                       </Listbox.Option>
                       <Listbox.Option
                         value="revenue"
@@ -233,7 +244,7 @@ export default function Index() {
                     placeholder="$10.00"
                   >
                     <NumberFormat
-                      {...currencyNumberFormatProps}
+                      {...currencyInputFormatProps}
                       value={comp.preferredSharePrice}
                       onValueChange={({ value }) =>
                         comp.setPreferredSharePrice(value)
@@ -248,7 +259,7 @@ export default function Index() {
                     placeholder="5"
                   >
                     <NumberFormat
-                      {...staticNumberFormatProps}
+                      {...staticInputFormatProps}
                       value={comp.expectedGrowthMultiple}
                       onValueChange={({ value }) =>
                         comp.setExpectedGrowthMultiple(value)
@@ -267,7 +278,7 @@ export default function Index() {
                     placeholder="10,000,000"
                   >
                     <NumberFormat
-                      {...staticNumberFormatProps}
+                      {...staticInputFormatProps}
                       value={comp.sharesOutstanding}
                       onValueChange={({ value }) =>
                         comp.setSharesOutstanding(value)
@@ -282,7 +293,7 @@ export default function Index() {
                     placeholder="$100,000,000"
                   >
                     <NumberFormat
-                      {...currencyNumberFormatProps}
+                      {...currencyInputFormatProps}
                       value={comp.expectedRevenue}
                       onValueChange={({ value }) =>
                         comp.setExpectedRevenue(value)
@@ -297,7 +308,7 @@ export default function Index() {
                     placeholder="15"
                   >
                     <NumberFormat
-                      {...staticNumberFormatProps}
+                      {...staticInputFormatProps}
                       value={comp.revenueMultiple}
                       onValueChange={({ value }) =>
                         comp.setRevenueMultiple(value)
@@ -311,7 +322,7 @@ export default function Index() {
           </form>
         </section>
         <section
-          className={`md:col-span-3 px-20 -mr-5 sticky top-5 h-[600px] transition-opacity ${
+          className={`md:col-span-3 px-20 -mr-5 sticky top-5 h-[350px] transition-opacity ${
             avgTc ? "opacity-100" : "opacity-30 pointer-events-none"
           }`}
         >
@@ -321,11 +332,7 @@ export default function Index() {
               <NumberFormat
                 className="text-3xl font-bold tracking-tight"
                 value={avgTc}
-                displayType="text"
-                thousandSeparator
-                prefix="$"
-                decimalScale={2}
-                fixedDecimalScale
+                {...currencyTextFormatProps}
               />
               {!!avgTc && (
                 <span className="text-xs ml-1 text-slate-400">(per year)</span>
@@ -337,6 +344,55 @@ export default function Index() {
               <Chart width={width} height={400} data={comp.data} />
             )}
           </ParentSize>
+          <table className="relative min-w-full divide-y divide-slate-600 text-sm">
+            <thead className="font-semibold">
+              <tr>
+                <th scope="col" className="px-3 py-3.5 text-left table-cell">
+                  Year
+                </th>
+                <th scope="col" className="px-3 py-3.5 text-left table-cell">
+                  Base
+                </th>
+                <th scope="col" className="px-3 py-3.5 text-left table-cell">
+                  Bonus
+                </th>
+                <th scope="col" className="px-3 py-3.5 text-left table-cell">
+                  Stock
+                </th>
+                <th scope="col" className="px-3 py-3.5 text-right table-cell">
+                  Total
+                </th>
+              </tr>
+            </thead>
+            <tbody className="text-slate-500">
+              {comp.data.map((c) => (
+                <tr key={c.year}>
+                  <td className="px-3 py-3.5 table-cell">{c.year}</td>
+                  <td className="px-3 py-3.5 table-cell">
+                    <NumberFormat value={c.base} {...currencyTextFormatProps} />
+                  </td>
+                  <td className="px-3 py-3.5 table-cell">
+                    <NumberFormat
+                      value={c.bonus}
+                      {...currencyTextFormatProps}
+                    />
+                  </td>
+                  <td className="px-3 py-3.5 table-cell">
+                    <NumberFormat
+                      value={c.stock}
+                      {...currencyTextFormatProps}
+                    />
+                  </td>
+                  <td className="px-3 py-3.5 table-cell text-right">
+                    <NumberFormat
+                      value={c.base + c.bonus + c.stock}
+                      {...currencyTextFormatProps}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </section>
       </main>
     </>

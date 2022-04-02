@@ -44,7 +44,7 @@ export default function Index() {
   return (
     <>
       <Navigation />
-      <main className="relative container mx-auto mb-20 md:grid md:grid-cols-5">
+      <main className="relative max-w-7xl mx-auto mb-20 md:grid md:grid-cols-5">
         <section className="md:col-span-2 px-8 -ml-5">
           <h1 className="text-2xl font-bold tracking-tight">
             A layman's Total Compensation Calculator
@@ -322,7 +322,7 @@ export default function Index() {
           </form>
         </section>
         <section
-          className={`md:col-span-3 px-20 -mr-5 sticky top-5 h-[350px] transition-opacity ${
+          className={`md:col-span-3 px-20 -mr-5 sticky top-5 h-screen overflow-scroll transition-opacity ${
             avgTc ? "opacity-100" : "opacity-30 pointer-events-none"
           }`}
         >
@@ -339,12 +339,15 @@ export default function Index() {
               )}
             </div>
           </div>
-          <ParentSize className="mt-10">
+          <ParentSize
+            className="mt-10"
+            parentSizeStyles={{ height: "auto", width: "100%" }}
+          >
             {({ width }) => (
               <Chart width={width} height={400} data={comp.data} />
             )}
           </ParentSize>
-          <table className="relative min-w-full divide-y divide-slate-600 text-sm">
+          <table className="relative min-w-full divide-y divide-slate-600 text-sm -mt-8">
             <thead className="font-semibold">
               <tr>
                 <th scope="col" className="px-3 py-3.5 text-left table-cell">

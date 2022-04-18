@@ -50,7 +50,7 @@ export default function Index() {
             A layman's Total Compensation Calculator
           </h1>
           <p className="mt-5 text-slate-300">
-            Understand your total compensation through a VC lens.
+            Understand your total compensation as an investor.
           </p>
           <form action="" className="mt-10">
             <fieldset>

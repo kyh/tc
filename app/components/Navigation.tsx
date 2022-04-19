@@ -67,27 +67,27 @@ export const Navigation = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-white rounded-2xl text-slate-500 text-sm">
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-black rounded-2xl text-slate-200 text-sm">
                 <Dialog.Title
                   as="h3"
-                  className="text-center text-lg font-medium leading-6 text-slate-900"
+                  className="text-2xl font-bold leading-6 text-slate-50"
                 >
                   About
                 </Dialog.Title>
-                <div className="mt-2">
+                <div className="mt-5">
                   <p>
                     Navigating startup compensation is no easy feat, in my
                     experience
                   </p>
                 </div>
                 <Tab.Group>
-                  <Tab.List className="flex p-1 space-x-1 bg-emerald-900/20 rounded-xl mt-2">
+                  <Tab.List className="flex p-1 space-x-1 bg-emerald-50/20 rounded-xl mt-2">
                     <Tab
                       className={({ selected }) =>
-                        `w-full py-2.5 text-sm leading-5 font-medium text-emerald-700 rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-emerald-400 ring-white ring-opacity-60 ${
+                        `w-full py-2.5 text-sm leading-5 font-medium text-emerald-600 rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-emerald-400 ring-white ring-opacity-60 ${
                           selected
                             ? "bg-white shadow"
-                            : "text-emerald-100 hover:text-emerald-900"
+                            : "hover:text-emerald-300"
                         }`
                       }
                     >
@@ -95,10 +95,10 @@ export const Navigation = () => {
                     </Tab>
                     <Tab
                       className={({ selected }) =>
-                        `w-full py-2.5 text-sm leading-5 font-medium text-emerald-700 rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-emerald-400 ring-white ring-opacity-60 ${
+                        `w-full py-2.5 text-sm leading-5 font-medium text-emerald-600 rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-emerald-400 ring-white ring-opacity-60 ${
                           selected
                             ? "bg-white shadow"
-                            : "text-emerald-100 hover:text-emerald-900"
+                            : "hover:text-emerald-300"
                         }`
                       }
                     >
@@ -114,7 +114,7 @@ export const Navigation = () => {
                         molestias. Libero aliquam voluptas eligendi aperiam eius
                         nesciunt culpa voluptatum!
                       </p>
-                      <p>
+                      <p className="mt-2">
                         Lorem ipsum dolor sit, amet consectetur adipisicing
                         elit. Atque, iusto! Perferendis asperiores deserunt
                         aliquam obcaecati quas, omnis iusto dicta odio

@@ -49,8 +49,8 @@ export default function Index() {
           <h1 className="text-2xl font-bold tracking-tight">
             A layman's Total Compensation Calculator
           </h1>
-          <p className="mt-5 text-slate-300">
-            Understand your total compensation as an investor.
+          <p className="mt-3 text-slate-300">
+            Understand your total compensation from the eyes of an investor.
           </p>
           <form action="" className="mt-10">
             <fieldset>
@@ -101,7 +101,7 @@ export default function Index() {
             </fieldset>
             <fieldset className="mt-10">
               <legend className="flex justify-between w-full text-sm text-slate-300">
-                <span>Stock Compensation</span>
+                <span>Equity Compensation</span>
                 <RadioGroup
                   className="flex gap-2"
                   value={comp.shareType}
@@ -186,7 +186,7 @@ export default function Index() {
             </fieldset>
             <fieldset className="mt-10">
               <legend className="flex justify-between w-full text-sm text-slate-300">
-                <span>Estimate Stock Value</span>
+                <span>Estimate Equity Value</span>
                 <Listbox
                   value={comp.shareCalcType}
                   onChange={(shareCalcType) => {

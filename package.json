@@ -1,8 +1,8 @@
 {
   "name": "tc",
   "private": true,
-  "description": "",
-  "license": "",
+  "description": "A laymans total compensation calculator",
+  "license": "MIT",
   "sideEffects": false,
   "scripts": {
     "build": "npm run build:css && npm run build:remix",

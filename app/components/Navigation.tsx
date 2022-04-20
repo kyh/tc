@@ -75,7 +75,11 @@ export const Navigation = () => {
                   About
                 </Dialog.Title>
                 <div className="mt-5">
-                  <p>Navigating startup compensation is no easy feat</p>
+                  <p>
+                    Navigating startup compensation is no easy feat but it can
+                    broadly be divided into 2 categories: Cash Compensation and
+                    Equity Compensation
+                  </p>
                 </div>
                 <Tab.Group>
                   <Tab.List className="flex p-1 space-x-1 bg-emerald-50/20 rounded-xl mt-2">

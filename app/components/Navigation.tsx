@@ -76,9 +76,23 @@ export const Navigation = () => {
                 </Dialog.Title>
                 <div className="mt-5">
                   <p>
-                    Navigating startup compensation is no easy feat but it can
-                    broadly be divided into 2 categories: Cash Compensation and
-                    Equity Compensation
+                    The term <strong>Total Compensation</strong> captures all
+                    the different ways you are financially compensated by your
+                    employer: base salary, bonus, equity, benefits, etc.
+                  </p>
+                  <p className="mt-2">
+                    Because of the differences in these forms of compensation,
+                    it can be hard to know ahead of time what compensation
+                    package is truly paying you.
+                  </p>
+                  <p className="mt-2 font-bold text-emerald-400">
+                    This calculator tries to normalize all these differences
+                    into numbers you can truly understand and compare against
+                    (at a private or public company)
+                  </p>
+                  <p className="mt-2">
+                    Broadly speaking, your compensation can be divided into 2
+                    categories:
                   </p>
                 </div>
                 <Tab.Group>

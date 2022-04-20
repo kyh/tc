@@ -75,10 +75,7 @@ export const Navigation = () => {
                   About
                 </Dialog.Title>
                 <div className="mt-5">
-                  <p>
-                    Navigating startup compensation is no easy feat, in my
-                    experience
-                  </p>
+                  <p>Navigating startup compensation is no easy feat</p>
                 </div>
                 <Tab.Group>
                   <Tab.List className="flex p-1 space-x-1 bg-emerald-50/20 rounded-xl mt-2">

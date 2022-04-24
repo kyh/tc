@@ -27,14 +27,9 @@ export const defaultSteps: Step[] = [
           different ways you are financially compensated by your employer: base
           salary, bonus, equity, benefits, etc.
         </p>
-        <p className="mt-2">
-          Because of the differences in these forms of compensation, it can be
-          hard to know ahead of time what compensation package is truly paying
-          you.
-        </p>
         <p className="mt-2 font-bold text-emerald-500">
-          This calculator tries to normalize all these differences into numbers
-          you can truly understand (at a private or public company)
+          This calculator normalizes all these different forms of compensation
+          into dollar values (in either private or public companies)
         </p>
       </>
     ),
@@ -75,6 +70,20 @@ export const defaultSteps: Step[] = [
           Equity compensation is more complex because it's difficult to get the
           exact dollar value of your equity.
         </p>
+        <p className="mt-4 text-xs uppercase text-slate-400">
+          Types of equity compensation:
+        </p>
+        <ul>
+          <li className="mt-2">
+            <strong>ISO</strong> - your typical startup equity package consists
+            of stock options which translate to stocks once you buy them for a
+            certain strike price
+          </li>
+          <li className="mt-2">
+            <strong>RSU</strong> - these are just like any other shares of
+            company stock once they are vested
+          </li>
+        </ul>
       </>
     ),
   },

@@ -13,7 +13,7 @@ type Props = {
 
 export const CompForm = ({ comp }: Props) => (
   <form>
-    <fieldset>
+    <fieldset className="cash-section">
       <legend className="text-sm text-slate-300">Cash Compensation</legend>
       <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
         <FormField
@@ -57,7 +57,7 @@ export const CompForm = ({ comp }: Props) => (
         </FormField>
       </div>
     </fieldset>
-    <fieldset className="mt-10">
+    <fieldset className="equity-section mt-10">
       <legend className="flex justify-between w-full text-sm text-slate-300">
         <span>Equity Compensation</span>
         <RadioGroup
@@ -138,7 +138,7 @@ export const CompForm = ({ comp }: Props) => (
         </div>
       )}
     </fieldset>
-    <fieldset className="mt-10">
+    <fieldset className="equity-value-section mt-10">
       <legend className="flex justify-between w-full text-sm text-slate-300">
         <span>Estimate Equity Value</span>
         <Listbox

@@ -20,12 +20,14 @@ export default function Index() {
       <Navigation />
       <main className="relative max-w-7xl mx-auto mb-20 md:grid md:grid-cols-5">
         <section className="md:col-span-2 px-8 -ml-5">
-          <h1 className="text-2xl font-bold tracking-tight">
-            A layman's Total Compensation Calculator
-          </h1>
-          <p className="mt-3 text-slate-300">
-            Understand your total compensation from the eyes of an investor.
-          </p>
+          <div className="title-section">
+            <h1 className="text-2xl font-bold tracking-tight">
+              A layman's Total Compensation Calculator
+            </h1>
+            <p className="mt-3 text-slate-300">
+              Understand your total compensation from the eyes of an investor.
+            </p>
+          </div>
           <div className="mt-10">
             <CompForm comp={comp} />
           </div>

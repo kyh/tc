@@ -46,7 +46,10 @@ export const defaultSteps: Step[] = [
       <>
         <p>
           Cash compensation is the simplest category to understand because it's
-          what gets directly deposited into your bank account. It includes:
+          what gets directly deposited into your bank account.
+        </p>
+        <p className="mt-4 text-xs uppercase text-slate-400">
+          Types of cash compensation:
         </p>
         <ul>
           <li className="mt-2">

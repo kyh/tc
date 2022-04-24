@@ -45,7 +45,8 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          Cash compensation is the simplist category to understand. It includes:
+          Cash compensation is the simplest category to understand because it's
+          what gets directly deposited into your bank account. It includes:
         </p>
         <ul>
           <li className="mt-2">

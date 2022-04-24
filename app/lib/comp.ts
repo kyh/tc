@@ -27,6 +27,8 @@ const baseData = [
   },
 ];
 
+export type BaseDataType = typeof baseData;
+
 const calculateBase = (base = "0") => {
   return parseFloat(base || "0");
 };
@@ -153,3 +155,5 @@ export const useCompHooks = () => {
     setRevenueMultiple,
   };
 };
+
+export type CompHooksType = ReturnType<typeof useCompHooks>;

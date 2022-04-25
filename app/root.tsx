@@ -53,7 +53,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-900 text-white bg-gradient-to-br from-slate-800 via-slate-900 to-black min-h-screen">
+      <body className="bg-slate-900 text-white bg-gradient-to-br from-slate-800 via-slate-900 to-black">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

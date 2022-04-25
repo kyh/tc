@@ -29,7 +29,8 @@ export const defaultSteps: Step[] = [
         </p>
         <p className="mt-2 font-bold text-emerald-500">
           This calculator normalizes all these different forms of compensation
-          into dollar values (in either private or public companies)
+          into dollar values (in either private or public companies) so you can
+          estimate how much you are paid.
         </p>
       </>
     ),
@@ -92,7 +93,26 @@ export const defaultSteps: Step[] = [
     target: ".equity-value-section",
     content: (
       <>
-        <p>We can estimate the value of your equity in a few ways:</p>
+        <p>
+          Think like an investor, instead of providing financial aid to a
+          company you're providing skill. And so you can use common investor
+          practices to estimate the equity you're receiving.
+        </p>
+        <p className="mt-4 text-xs uppercase text-slate-400">
+          Estimating equity value:
+        </p>
+        <ul>
+          <li className="mt-2">
+            <strong>Growth based</strong> - High-growth companies may earn you
+            more over an equivalent package at a slower growing company.
+            Estimate the growth of stock over the next 4 years
+          </li>
+          <li className="mt-2">
+            <strong>Revenue based</strong> - If you know the revenue of your
+            company, you can estimate the value of your equity by comparing it
+            against the revenue multiple of an equivalent public company
+          </li>
+        </ul>
       </>
     ),
   },

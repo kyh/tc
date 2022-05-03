@@ -46,13 +46,30 @@ const calculateStocks = (shares = "0", strikePrice = "0", shareValue = "0") => {
   return total > 0 ? total : 0;
 };
 
+const compoundInterest = (
+  principle: number = 0,
+  rate: number = 0,
+  time: number = 1,
+  n: number = 1
+) => {
+  const amount = principle * Math.pow(1 + rate / n, n * time);
+  const interest = amount - principle;
+  return interest;
+};
+
 const calculateShareValueFromMultiple = (
   preferredSharePrice = "0",
-  multiple = "1"
+  multiple = "0",
+  calcTotal = true,
+  year = "1"
 ) => {
-  return String(
-    parseFloat(preferredSharePrice || "0") * parseFloat(multiple || "1")
-  );
+  const price = parseFloat(preferredSharePrice || "0");
+  const rate = parseFloat(multiple || "0");
+
+  if (calcTotal) return (price * rate || 1).toFixed(2);
+
+  const interest = compoundInterest(price, rate / 100, parseInt(year));
+  return (price + interest).toFixed(2);
 };
 
 const calculateShareValueFromRevenue = (
@@ -64,7 +81,7 @@ const calculateShareValueFromRevenue = (
     parseFloat(expectedRevenue || "0") * parseFloat(revenueMultiple || "0");
   const shareValue = valuation / parseInt(sharesOutstanding || "1");
 
-  return String(shareValue);
+  return shareValue.toFixed(2);
 };
 
 export const useCompHooks = () => {
@@ -98,7 +115,9 @@ export const useCompHooks = () => {
           shareCalcType === "current"
             ? calculateShareValueFromMultiple(
                 preferredSharePrice,
-                expectedGrowthMultiple
+                expectedGrowthMultiple,
+                shareType === "iso",
+                d.year
               )
             : calculateShareValueFromRevenue(
                 sharesOutstanding,

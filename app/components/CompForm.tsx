@@ -68,6 +68,7 @@ export const CompForm = ({ comp }: Props) => (
             comp.setIso("");
             comp.setStrikePrice("");
             comp.setRsu("");
+            comp.setExpectedGrowthMultiple("");
           }}
           onBlur={() => comp.updateData()}
         >
@@ -206,12 +207,18 @@ export const CompForm = ({ comp }: Props) => (
           </FormField>
           <FormField
             className="rounded-t-none"
-            label="Expected Growth Multiple"
+            label={
+              comp.shareType === "rsu"
+                ? "Expected Market Growth (per year)"
+                : "Expected Growth over 4 years"
+            }
             name="revenue-multiple"
-            placeholder="5"
+            placeholder={comp.shareType === "rsu" ? "30%" : "5x"}
           >
             <NumberFormat
               {...staticInputFormatProps}
+              allowNegative
+              suffix={comp.shareType === "rsu" ? "%" : "x"}
               value={comp.expectedGrowthMultiple}
               onValueChange={({ value }) =>
                 comp.setExpectedGrowthMultiple(value)

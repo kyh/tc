@@ -94,18 +94,17 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          Think like an investor, instead of providing financial aid to a
-          company you're providing skill. And so you can use common investor
-          practices to estimate the equity you're receiving.
+          There are multiple ways of estimating the value of your equity. We
+          offer 2 different approaches.
         </p>
         <p className="mt-4 text-xs uppercase text-slate-400">
           Estimating equity value:
         </p>
         <ul>
           <li className="mt-2">
-            <strong>Growth based</strong> - High-growth companies may earn you
-            more over an equivalent package at a slower growing company.
-            Estimate the growth of stock over the next 4 years
+            <strong>Growth based</strong> - At high-growth startup companies it
+            may be easier to think of your stock value as an N multiple after 4
+            years. Often, VCs expect a 10x return on their investment
           </li>
           <li className="mt-2">
             <strong>Revenue based</strong> - If you know the revenue of your

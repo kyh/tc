@@ -29,8 +29,8 @@ export const defaultSteps: Step[] = [
         </p>
         <p className="mt-2 font-bold text-emerald-500">
           This calculator normalizes all these different forms of compensation
-          into dollar values (in either private or public companies) so you can
-          estimate how much you are paid.
+          into dollar values (from private or public companies) so you can
+          estimate the final amount you are paid.
         </p>
       </>
     ),
@@ -68,8 +68,9 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          Equity compensation is more complex because it's difficult to get the
-          exact dollar value of your equity.
+          Equity compensation is more complex, you only recieve during certain
+          periods and it's difficult to get the exact dollar value of your
+          equity.
         </p>
         <p className="mt-4 text-xs uppercase text-slate-400">
           Types of equity compensation:
@@ -94,8 +95,8 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          There are multiple ways of estimating the value of your equity. We
-          offer 2 different approaches.
+          There are multiple ways of estimating the value of your equity. This
+          calculator offers 2 different approaches.
         </p>
         <p className="mt-4 text-xs uppercase text-slate-400">
           Estimating equity value:
@@ -112,6 +113,18 @@ export const defaultSteps: Step[] = [
             against the revenue multiple of an equivalent public company
           </li>
         </ul>
+      </>
+    ),
+  },
+  {
+    ...defaultStepProps,
+    target: ".estimate-modal-button",
+    content: (
+      <>
+        <p>
+          If you don't know what estimation numbers to use, the calculator can
+          offer reasonable defaults for you.
+        </p>
       </>
     ),
   },

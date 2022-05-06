@@ -95,8 +95,8 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          There are multiple ways of estimating the value of your equity. This
-          calculator offers 2 different approaches.
+          There are plenty of ways to estimate the value of your equity. Here,
+          we'll offers 2 different approaches.
         </p>
         <p className="mt-4 text-xs uppercase text-slate-400">
           Estimating equity value:
@@ -122,8 +122,8 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          If you don't know what estimation numbers to use, the calculator can
-          offer reasonable defaults for you.
+          If you don't know what numbers to use, we can offer reasonable
+          defaults for you by looking at competitors.
         </p>
       </>
     ),

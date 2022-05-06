@@ -42,8 +42,7 @@ export const CompModal = ({
         <div className="mt-3">
           <h2 className="text-slate-50 font-bold">Current Market Price</h2>
           <p className="mt-1">
-            The current market price is the price at which the company on the
-            market.
+            This is the stock price at which the company is currently trading
           </p>
         </div>
       )}
@@ -52,6 +51,7 @@ export const CompModal = ({
           <h2 className="text-slate-50 font-bold">Shares Outstanding</h2>
           <p className="mt-1">
             The shares outstanding is the number of shares that the company has
+            available in the market.
           </p>
         </div>
       )}
@@ -71,7 +71,10 @@ export const CompModal = ({
         {rsuCurrent && (
           <>
             <h2 className="text-slate-50 font-bold">Expected Market Growth</h2>
-            <p className="mt-1"></p>
+            <p className="mt-1">
+              How much do you expect the stock price to change every year?
+              Anualized growth over the last 4 years is a good estimate.
+            </p>
           </>
         )}
         {(isoRevenue || rsuRevenue) && (
@@ -79,13 +82,21 @@ export const CompModal = ({
             <h2 className="text-slate-50 font-bold">
               Expected Company Revenue
             </h2>
-            <p className="mt-1"></p>
+            <p className="mt-1">
+              How much do you expect the company to make every year? Divide this
+              number by the number of shares outstanding to get the revenue
+              multiple.
+            </p>
             <h2 className="text-slate-50 font-bold mt-3">Revenue Multiple</h2>
-            <p className="mt-1"></p>
+            <p className="mt-1">
+              The revenue multiple is the ratio of the company's revenue
+              relative to its stock price. You can use your competitors revenue
+              multiple to estimate what your share value would be.
+            </p>
           </>
         )}
         <p className="mt-3 italic">
-          Alternatively, you can estimate reasonable numbers by looking at
+          You can estimate reasonable numbers to fill in by looking at
           competitors:
         </p>
         <form className="mt-2">

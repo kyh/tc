@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import styles from "./tailwind.css";
+import global from "./global.css";
 
 export const meta: MetaFunction = () => ({
   title: "Total Compensation Calculator",
@@ -20,6 +21,7 @@ export const meta: MetaFunction = () => ({
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: global },
   {
     rel: "apple-touch-icon",
     sizes: "180x180",

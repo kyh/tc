@@ -17,7 +17,7 @@ export const CompForm = ({ comp }: Props) => {
   const modalProps = useModal();
   return (
     <>
-      <form>
+      <div>
         <fieldset className="cash-section">
           <legend className="text-sm text-slate-300">Cash Compensation</legend>
           <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
@@ -308,7 +308,7 @@ export const CompForm = ({ comp }: Props) => {
             </div>
           )}
         </fieldset>
-      </form>
+      </div>
       <CompModal
         shareType={comp.shareType}
         shareCalcType={comp.shareCalcType}

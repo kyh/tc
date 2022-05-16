@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useFetcher } from "@remix-run/react";
 import Select, { components } from "react-select";
+import NumberFormat from "react-number-format";
 import { Modal } from "~/components/Modal";
 import { FormField } from "~/components/FormField";
 import type { OptionProps, MultiValue } from "react-select";
 import type { Props as ModalProps } from "~/components/Modal";
 import type { CompHooksType } from "~/lib/comp";
+import {
+  currencyTextFormatProps,
+  staticTextFormatProps,
+} from "~/lib/formProps";
 
-type Props = {
-  shareType: CompHooksType["shareType"];
-  shareCalcType: CompHooksType["shareCalcType"];
-} & Omit<ModalProps, "title" | "children">;
+type Props = { setShouldUpdate: (t: boolean) => void } & CompHooksType &
+  Omit<ModalProps, "title" | "children">;
 
 const Option = ({ children, ...rest }: OptionProps<any>) => {
   return (
@@ -29,6 +32,12 @@ export const CompModal = ({
   openModal,
   shareType,
   shareCalcType,
+  setExpectedGrowthMultiple,
+  setPreferredSharePrice,
+  setSharesOutstanding,
+  setExpectedRevenue,
+  setRevenueMultiple,
+  setShouldUpdate,
 }: Props) => {
   const [view, setView] = useState("estimate");
 
@@ -36,17 +45,35 @@ export const CompModal = ({
   const companies = useFetcher();
 
   const loadOptions = (value: string) => {
-    if (value) search.load(`/api/search?q=${value}`);
+    search.load(`/api/search?q=${value}`);
   };
 
   const loadCompaniesData = (selected: MultiValue<any>) => {
-    if (selected.length) {
-      const query = selected.map((s) => s.symbol).join(",");
-      companies.load(`/api/stock?s=${query}`);
-    }
+    const query = selected.map((s) => s.symbol).join(",");
+    companies.load(`/api/stock?s=${query}`);
   };
 
-  console.log("companies:", companies);
+  const handleClose = () => {
+    loadCompaniesData([]);
+    closeModal();
+  };
+
+  const handleUse = (c: any) => {
+    if (isoCurrent) {
+      setExpectedGrowthMultiple(Math.floor(c.year5ChangePercent).toString());
+    }
+    if (rsuCurrent) {
+      setPreferredSharePrice((c.marketcap / c.sharesOutstanding).toString());
+      setExpectedGrowthMultiple((c.year1ChangePercent * 100).toFixed(2));
+    }
+    if (isoRevenue || rsuRevenue) {
+      setSharesOutstanding(c.sharesOutstanding);
+      setExpectedRevenue(c.revenue);
+      setRevenueMultiple(c.revenuePerShare);
+    }
+    setShouldUpdate(true);
+    handleClose();
+  };
 
   const isoCurrent = shareType === "iso" && shareCalcType == "current";
   const rsuCurrent = shareType === "rsu" && shareCalcType == "current";
@@ -57,7 +84,7 @@ export const CompModal = ({
     <Modal
       isOpen={isOpen}
       openModal={openModal}
-      closeModal={closeModal}
+      closeModal={handleClose}
       title={
         <div className="flex justify-between items-end">
           <h1>
@@ -66,7 +93,7 @@ export const CompModal = ({
           <span className="relative z-0 inline-flex shadow-sm rounded-md">
             <button
               type="button"
-              className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 ${
+              className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition ${
                 view === "estimate" ? "bg-slate-800" : ""
               }`}
               onClick={() => setView("estimate")}
@@ -94,7 +121,7 @@ export const CompModal = ({
             </button>
             <button
               type="button"
-              className={`-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 ${
+              className={`-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition ${
                 view === "terminology" ? "bg-slate-800" : ""
               }`}
               onClick={() => setView("terminology")}
@@ -196,48 +223,48 @@ export const CompModal = ({
         </div>
       )}
       {view === "estimate" && (
-        <div className="mt-3 min-h-[500px]">
-          <p>
-            Estimate reasonable numbers for your equity value by looking at
-            competitors:
-          </p>
-          <div className="mt-2">
-            <FormField
-              className="rounded"
-              label="Add your company or a competitor"
-              name="competitor"
-              placeholder="Google"
-            >
-              <Select
-                className="react-select-container"
-                classNamePrefix="react-select"
-                components={{ Option, IndicatorsContainer: () => null }}
-                isMulti
-                isLoading={search.state !== "idle"}
-                defaultValue={[]}
-                onInputChange={loadOptions}
-                options={search.data}
-                onChange={loadCompaniesData}
-                isOptionDisabled={() =>
-                  companies.data && companies.data.length >= 3
-                }
-                openMenuOnFocus={false}
-                openMenuOnClick={false}
-              />
-            </FormField>
+        <div className="flex flex-col gap-3 min-h-[360px]">
+          <div className="mt-3">
+            <p>
+              Estimate reasonable numbers for your equity value by looking at
+              competitors:
+            </p>
+            <div className="mt-3">
+              <FormField
+                className="rounded"
+                label="Add your company or a competitor"
+                name="competitor"
+                placeholder="Google"
+              >
+                <Select
+                  className="react-select-container"
+                  classNamePrefix="react-select"
+                  components={{ Option, IndicatorsContainer: () => null }}
+                  isMulti
+                  isLoading={search.state !== "idle"}
+                  defaultValue={[]}
+                  onInputChange={loadOptions}
+                  options={search.data}
+                  onChange={loadCompaniesData}
+                  isSearchable={
+                    !companies.data ||
+                    (companies.data && companies.data.length < 3)
+                  }
+                  openMenuOnFocus={false}
+                  openMenuOnClick={false}
+                />
+              </FormField>
+            </div>
           </div>
-          {!!companies.data && (
-            <table className="relative min-w-full divide-y divide-slate-600 text-sm mt-2">
+          {companies.data && companies.data.length ? (
+            <table className="relative min-w-full divide-y divide-slate-600 text-sm">
               <thead className="font-semibold">
                 <tr>
                   <th scope="col" className="px-3 py-3.5 text-left table-cell">
                     Company
                   </th>
                   {isoCurrent && (
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-right table-cell"
-                    >
+                    <th scope="col" className="px-3 py-3.5 table-cell">
                       Growth over last 4 years
                     </th>
                   )}
@@ -279,6 +306,7 @@ export const CompModal = ({
                       </th>
                     </>
                   )}
+                  <th scope="col" className="py-3.5 text-right table-cell" />
                 </tr>
               </thead>
               <tbody className="text-slate-500">
@@ -286,35 +314,76 @@ export const CompModal = ({
                   <tr key={c.companyName}>
                     <td className="px-3 py-3.5 table-cell">{c.companyName}</td>
                     {isoCurrent && (
-                      <td className="px-3 py-3.5 table-cell text-right">
-                        {c.year1ChangePercent}
+                      <td className="px-3 py-3.5 table-cell">
+                        <NumberFormat
+                          {...staticTextFormatProps}
+                          allowNegative
+                          suffix="%"
+                          value={c.year5ChangePercent * 100}
+                        />
                       </td>
                     )}
                     {rsuCurrent && (
                       <>
                         <td className="px-3 py-3.5 table-cell">
-                          {c.marketcap / c.sharesOutstanding}
+                          <NumberFormat
+                            {...currencyTextFormatProps}
+                            value={c.marketcap / c.sharesOutstanding}
+                          />
                         </td>
-                        <td className="px-3 py-3.5 table-cell text-right">
-                          {c.year1ChangePercent}
+                        <td className="px-3 py-3.5 table-cell">
+                          <NumberFormat
+                            {...staticTextFormatProps}
+                            allowNegative
+                            suffix="%"
+                            value={c.year1ChangePercent * 100}
+                          />
                         </td>
                       </>
                     )}
                     {(isoRevenue || rsuRevenue) && (
                       <>
                         <td className="px-3 py-3.5 table-cell">
-                          {c.sharesOutstanding}
+                          <NumberFormat
+                            displayType="text"
+                            thousandSeparator
+                            isNumericString
+                            value={c.sharesOutstanding}
+                          />
                         </td>
-                        <td className="px-3 py-3.5 table-cell">{c.revenue}</td>
                         <td className="px-3 py-3.5 table-cell">
-                          {c.revenuePerShare}
+                          <NumberFormat
+                            {...currencyTextFormatProps}
+                            value={c.revenue}
+                          />
+                        </td>
+                        <td className="px-3 py-3.5 table-cell">
+                          <NumberFormat
+                            displayType="text"
+                            thousandSeparator
+                            isNumericString
+                            value={c.revenuePerShare}
+                          />
                         </td>
                       </>
                     )}
+                    <td className="py-3.5 table-cell text-right">
+                      <button
+                        type="button"
+                        className="text-white inline-flex items-center px-2 py-1 rounded-md border border-slate-600 text-xs hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                        onClick={() => handleUse(c)}
+                      >
+                        Use
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          ) : (
+            <div className="flex justify-center items-center flex-1">
+              <h2 className="text-slate-700">Add a company above</h2>
+            </div>
           )}
         </div>
       )}

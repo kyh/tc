@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { RadioGroup, Listbox } from "@headlessui/react";
 import NumberFormat from "react-number-format";
 import { FormField } from "~/components/FormField";
@@ -14,7 +15,16 @@ type Props = {
 };
 
 export const CompForm = ({ comp }: Props) => {
+  const [shouldUpdate, setShouldUpdate] = useState(false);
   const modalProps = useModal();
+
+  useEffect(() => {
+    if (shouldUpdate) {
+      comp.updateData();
+      setShouldUpdate(false);
+    }
+  }, [comp, shouldUpdate]);
+
   return (
     <>
       <div>
@@ -31,7 +41,7 @@ export const CompForm = ({ comp }: Props) => {
                 {...currencyInputFormatProps}
                 value={comp.base}
                 onValueChange={({ value }) => comp.setBase(value)}
-                onBlur={() => comp.updateData()}
+                onBlur={() => setShouldUpdate(true)}
               />
             </FormField>
             <FormField
@@ -44,7 +54,7 @@ export const CompForm = ({ comp }: Props) => {
                 {...currencyInputFormatProps}
                 value={comp.signOnBonus}
                 onValueChange={({ value }) => comp.setSignOnBonus(value)}
-                onBlur={() => comp.updateData()}
+                onBlur={() => setShouldUpdate(true)}
               />
             </FormField>
             <FormField
@@ -57,7 +67,7 @@ export const CompForm = ({ comp }: Props) => {
                 {...currencyInputFormatProps}
                 value={comp.targetBonus}
                 onValueChange={({ value }) => comp.setTargetBonus(value)}
-                onBlur={() => comp.updateData()}
+                onBlur={() => setShouldUpdate(true)}
               />
             </FormField>
           </div>
@@ -75,7 +85,7 @@ export const CompForm = ({ comp }: Props) => {
                 comp.setRsu("");
                 comp.setExpectedGrowthMultiple("");
               }}
-              onBlur={() => comp.updateData()}
+              onBlur={() => setShouldUpdate(true)}
             >
               <RadioGroup.Option value="iso">
                 {({ checked }) => (
@@ -113,7 +123,7 @@ export const CompForm = ({ comp }: Props) => {
                   {...staticInputFormatProps}
                   value={comp.iso}
                   onValueChange={({ value }) => comp.setIso(value)}
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
               <FormField
@@ -126,7 +136,7 @@ export const CompForm = ({ comp }: Props) => {
                   {...currencyInputFormatProps}
                   value={comp.strikePrice}
                   onValueChange={({ value }) => comp.setStrikePrice(value)}
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
             </div>
@@ -142,7 +152,7 @@ export const CompForm = ({ comp }: Props) => {
                   {...staticInputFormatProps}
                   value={comp.rsu}
                   onValueChange={({ value }) => comp.setRsu(value)}
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
             </div>
@@ -236,7 +246,7 @@ export const CompForm = ({ comp }: Props) => {
                   onValueChange={({ value }) =>
                     comp.setPreferredSharePrice(value)
                   }
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
               <FormField
@@ -257,7 +267,7 @@ export const CompForm = ({ comp }: Props) => {
                   onValueChange={({ value }) =>
                     comp.setExpectedGrowthMultiple(value)
                   }
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
             </div>
@@ -276,7 +286,7 @@ export const CompForm = ({ comp }: Props) => {
                   onValueChange={({ value }) =>
                     comp.setSharesOutstanding(value)
                   }
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
               <FormField
@@ -289,7 +299,7 @@ export const CompForm = ({ comp }: Props) => {
                   {...currencyInputFormatProps}
                   value={comp.expectedRevenue}
                   onValueChange={({ value }) => comp.setExpectedRevenue(value)}
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
               <FormField
@@ -302,18 +312,14 @@ export const CompForm = ({ comp }: Props) => {
                   {...staticInputFormatProps}
                   value={comp.revenueMultiple}
                   onValueChange={({ value }) => comp.setRevenueMultiple(value)}
-                  onBlur={() => comp.updateData()}
+                  onBlur={() => setShouldUpdate(true)}
                 />
               </FormField>
             </div>
           )}
         </fieldset>
       </div>
-      <CompModal
-        shareType={comp.shareType}
-        shareCalcType={comp.shareCalcType}
-        {...modalProps}
-      />
+      <CompModal {...comp} {...modalProps} setShouldUpdate={setShouldUpdate} />
     </>
   );
 };

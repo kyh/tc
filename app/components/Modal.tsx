@@ -47,7 +47,7 @@ export const Modal = ({ isOpen, closeModal, title, children }: Props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-black p-6 text-left shadow-xl transition-all text-slate-300 text-sm">
+              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-black p-6 text-left shadow-xl transition-all text-slate-300 text-sm">
                 {title && (
                   <Dialog.Title
                     as="h3"

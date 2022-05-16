@@ -8,9 +8,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   const url = new URL(request.url);
   const fragment = url.searchParams.get("s");
 
-  if (!fragment) {
-    return json([]);
-  }
+  if (!fragment) return json([]);
 
   const queries = fragment.split(",");
   const promises = queries.map((q) =>

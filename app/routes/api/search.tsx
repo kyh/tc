@@ -7,6 +7,9 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
   const url = new URL(request.url);
   const fragment = url.searchParams.get("q");
+
+  if (!fragment) return json([]);
+
   const response = await fetch(`${baseUrl}/search/${fragment}?token=${token}`);
   const data: any[] = await response.json();
 

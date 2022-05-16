@@ -5,6 +5,16 @@ export const staticInputFormatProps = {
   allowNegative: false,
 };
 
+export const staticTextFormatProps = {
+  decimalSeparator: ".",
+  displayType: "text" as "text",
+  thousandSeparator: true,
+  isNumericString: true,
+  allowNegative: false,
+  decimalScale: 2,
+  fixedDecimalScale: true,
+};
+
 export const currencyInputFormatProps = {
   prefix: "$",
   decimalSeparator: ".",

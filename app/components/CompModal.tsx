@@ -60,16 +60,16 @@ export const CompModal = ({
 
   const handleUse = (c: any) => {
     if (isoCurrent) {
-      setExpectedGrowthMultiple(Math.floor(c.year5ChangePercent).toString());
+      setExpectedGrowthMultiple(Math.floor(c.year5ChangePercent).toFixed(2));
     }
     if (rsuCurrent) {
-      setPreferredSharePrice((c.marketcap / c.sharesOutstanding).toString());
-      setExpectedGrowthMultiple((c.year1ChangePercent * 100).toFixed(2));
+      setPreferredSharePrice((c.marketcap / c.sharesOutstanding).toFixed(2));
+      setExpectedGrowthMultiple(((c.year5ChangePercent / 5) * 100).toFixed(2));
     }
     if (isoRevenue || rsuRevenue) {
-      setSharesOutstanding(c.sharesOutstanding);
-      setExpectedRevenue(c.revenue);
-      setRevenueMultiple(c.revenuePerShare);
+      setSharesOutstanding(c.sharesOutstanding.toString());
+      setExpectedRevenue(c.revenue.toString());
+      setRevenueMultiple(c.revenuePerShare.toString());
     }
     setShouldUpdate(true);
     handleClose();
@@ -336,7 +336,7 @@ export const CompModal = ({
                             {...staticTextFormatProps}
                             allowNegative
                             suffix="%"
-                            value={c.year1ChangePercent * 100}
+                            value={(c.year5ChangePercent / 5) * 100}
                           />
                         </td>
                       </>

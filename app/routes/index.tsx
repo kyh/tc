@@ -25,7 +25,7 @@ export default function Index() {
               A layman's Total Compensation Calculator
             </h1>
             <p className="mt-3 text-slate-300">
-              Understand your total compensation from the eyes of an investor.
+              Understand your total compensation with current market conditions.
             </p>
           </div>
           <div className="mt-10">

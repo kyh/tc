@@ -95,8 +95,9 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          There are plenty of ways to estimate the value of your equity. Here,
-          we'll offers 2 different approaches.
+          Estimating the value of your equity is the hard part. Investors often
+          look at value from multiple dimensions. To keep things simple, we
+          offer 2 different approaches.
         </p>
         <p className="mt-4 text-xs uppercase text-slate-400">
           Estimating equity value:

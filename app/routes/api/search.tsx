@@ -13,9 +13,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   const response = await fetch(`${baseUrl}/search/${fragment}?token=${token}`);
   const data: any[] = await response.json();
 
-  const formatted = data
-    .filter((d) => !!d.iexId)
-    .map((d) => ({ ...d, label: d.name, value: d.iexId }));
+  const formatted = data.map((d) => ({ ...d, label: d.name, value: d.iexId }));
 
   return json(formatted);
 };

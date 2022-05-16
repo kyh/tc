@@ -60,7 +60,7 @@ export const CompModal = ({
 
   const handleUse = (c: any) => {
     if (isoCurrent) {
-      setExpectedGrowthMultiple(Math.floor(c.year5ChangePercent).toFixed(2));
+      setExpectedGrowthMultiple(c.year5ChangePercent.toFixed(2));
     }
     if (rsuCurrent) {
       setPreferredSharePrice((c.marketcap / c.sharesOutstanding).toFixed(2));

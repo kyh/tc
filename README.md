@@ -1,4 +1,4 @@
-# A layman's Total Compensation Calculator
+# Total Compensation Calculator
 
 [🚀 Live Site](https://tc.kyh.io)
 

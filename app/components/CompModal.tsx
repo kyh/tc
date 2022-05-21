@@ -2,15 +2,17 @@ import { useState } from "react";
 import { useFetcher } from "@remix-run/react";
 import Select, { components } from "react-select";
 import NumberFormat from "react-number-format";
+import { useDebouncedCallback } from "use-debounce";
 import { Modal } from "~/components/Modal";
 import { FormField } from "~/components/FormField";
-import type { OptionProps, MultiValue } from "react-select";
-import type { Props as ModalProps } from "~/components/Modal";
-import type { CompHooksType } from "~/lib/comp";
 import {
   currencyTextFormatProps,
   staticTextFormatProps,
 } from "~/lib/formProps";
+
+import type { OptionProps, MultiValue } from "react-select";
+import type { Props as ModalProps } from "~/components/Modal";
+import type { CompHooksType } from "~/lib/comp";
 
 type Props = { setShouldUpdate: (t: boolean) => void } & CompHooksType &
   Omit<ModalProps, "title" | "children">;
@@ -40,13 +42,13 @@ export const CompModal = ({
   setShouldUpdate,
 }: Props) => {
   const [view, setView] = useState("estimate");
-
   const search = useFetcher();
   const companies = useFetcher();
 
-  const loadOptions = (value: string) => {
+  const loadOptions = useDebouncedCallback((value) => {
+    console.log("here??");
     search.load(`/api/search?q=${value}`);
-  };
+  }, 300);
 
   const loadCompaniesData = (selected: MultiValue<any>) => {
     const query = selected.map((s) => s.symbol).join(",");

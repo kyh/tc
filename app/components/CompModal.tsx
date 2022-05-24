@@ -46,7 +46,6 @@ export const CompModal = ({
   const companies = useFetcher();
 
   const loadOptions = useDebouncedCallback((value) => {
-    console.log("here??");
     search.load(`/api/search?q=${value}`);
   }, 300);
 
@@ -330,7 +329,7 @@ export const CompModal = ({
                         <td className="px-3 py-3.5 table-cell">
                           <NumberFormat
                             {...currencyTextFormatProps}
-                            value={c.marketcap / c.sharesOutstanding}
+                            value={c.day200MovingAvg}
                           />
                         </td>
                         <td className="px-3 py-3.5 table-cell">

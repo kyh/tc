@@ -11,7 +11,7 @@
     "dev": "remix build && run-p dev:*",
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "remix watch",
-    "dev:wrangler": "cross-env NODE_ENV=development wrangler pages dev ./public --binding IEX_PUBLISHABLE_KEY=\"Tpk_da47c5ad244642228eacea91480e1dc5\" IEX_URL=\"https://sandbox.iexapis.com/stable/\"",
+    "dev:wrangler": "cross-env NODE_ENV=development node ./scripts/dev-wrangler.mjs",
     "generate:css": "npx tailwindcss -o ./app/tailwind.css",
     "start": "cross-env NODE_ENV=production npm run dev:wrangler"
   },

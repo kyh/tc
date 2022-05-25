@@ -2,8 +2,8 @@ import { json } from "@remix-run/cloudflare";
 import type { LoaderFunction } from "@remix-run/cloudflare";
 
 export const loader: LoaderFunction = async ({ request, context }) => {
-  const baseUrl = context.IEX_URL;
-  const token = context.IEX_PUBLISHABLE_KEY;
+  const baseUrl = context.env.IEX_URL;
+  const token = context.env.IEX_PUBLISHABLE_KEY;
 
   const url = new URL(request.url);
   const fragment = url.searchParams.get("s");

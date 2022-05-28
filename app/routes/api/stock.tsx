@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       .catch(() => ({}))
   );
 
-  const data: any[] = await Promise.all(promises);
+  const data: unknown[] = await Promise.all(promises);
 
   return json(data);
 };

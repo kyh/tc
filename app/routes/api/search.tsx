@@ -4,7 +4,7 @@ import type { LoaderFunction } from "@remix-run/cloudflare";
 export const loader: LoaderFunction = async ({ request, context }) => {
   const baseUrl = context.env.IEX_URL;
   const iexToken = context.env.IEX_PUBLISHABLE_KEY;
-  const proxiedToken = context.env.PROXIED_API_KEY;
+  const proxyToken = context.env.PROXY_API_KEY;
 
   const url = new URL(request.url);
   const fragment = url.searchParams.get("q");
@@ -14,7 +14,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   const response = await fetch(
     `${baseUrl}/search/${fragment}?token=${iexToken}`,
     {
-      headers: { "proxy-apiKey": proxiedToken },
+      headers: { "proxy-apiKey": proxyToken },
     }
   );
   const data: Record<string, string>[] = await response.json();

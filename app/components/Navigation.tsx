@@ -19,10 +19,17 @@ export const Navigation = () => {
           About
         </button>
         <a
+          href="https://docs.google.com/spreadsheets/d/1MorR4RBtiFMexFv91w9sKcqBRIkLyv7tb394j8BHlig/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Spreadsheet
+        </a>
+        <a
           className="p-3"
           href="https://github.com/kyh/tc"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           Github
         </a>

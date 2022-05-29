@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const CompTable = ({ data }: Props) => (
-  <table className="relative min-w-full divide-y divide-slate-600 text-sm -mt-8">
+  <table className="min-w-full text-sm divide-y  divide-slate-600">
     <thead className="font-semibold">
       <tr>
         <th scope="col" className="px-3 py-3.5 text-left table-cell">

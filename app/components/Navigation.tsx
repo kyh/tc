@@ -10,15 +10,16 @@ export const Navigation = () => {
         <span className="sr-only">Logo</span>
         <Logo />
       </a>
-      <div className="flex items-center md:gap-4">
+      <div className="flex items-center gap-5 pr-2 md:gap-6">
         <button
           type="button"
-          className="p-3"
+          className="hover:underline"
           onClick={() => aboutProps.setRun(true)}
         >
           About
         </button>
         <a
+          className="hover:underline"
           href="https://docs.google.com/spreadsheets/d/1MorR4RBtiFMexFv91w9sKcqBRIkLyv7tb394j8BHlig/edit?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
@@ -26,7 +27,7 @@ export const Navigation = () => {
           Spreadsheet
         </a>
         <a
-          className="p-3"
+          className="hover:underline"
           href="https://github.com/kyh/tc"
           target="_blank"
           rel="noopener noreferrer"

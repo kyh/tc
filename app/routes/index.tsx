@@ -64,6 +64,19 @@ export default function Index() {
           <CompTable data={comp.data} />
         </section>
       </main>
+      <a
+        href="https://www.producthunt.com/posts/total-compensation-calculator?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-total&#0045;compensation&#0045;calculator"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=347810&theme=dark"
+          alt="Total&#0032;Compensation&#0032;Calculator - Your&#0032;total&#0032;compensation&#0032;under&#0032;current&#0032;market&#0032;conditions | Product Hunt"
+          width="250"
+          height="54"
+          style={{ position: "fixed", bottom: 20, right: 20 }}
+        />
+      </a>
     </>
   );
 }

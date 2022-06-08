@@ -34,7 +34,7 @@ export default function Index() {
           </div>
         </section>
         <section
-          className={`py-10 md:col-span-3 md:px-20 md:py-0 sticky top-5 h-screen overflow-scroll transition-opacity ${
+          className={`py-10 md:col-span-3 md:px-20 md:py-0 sticky top-5 md:h-screen overflow-y-auto overflow-x-hidden transition-opacity ${
             avgTc ? "opacity-100" : "opacity-30 pointer-events-none"
           }`}
         >
@@ -61,7 +61,9 @@ export default function Index() {
               <Chart width={width} height={400} data={comp.data} />
             )}
           </ParentSize>
-          <CompTable data={comp.data} />
+          <div className="relative w-full -mt-8 overflow-x-auto">
+            <CompTable data={comp.data} />
+          </div>
         </section>
       </main>
       <a

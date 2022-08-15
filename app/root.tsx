@@ -46,6 +46,7 @@ export const links: LinksFunction = () => [
     color: "#555555",
   },
   { rel: "shortcut icon", href: "/favicon/favicon.ico" },
+  { rel: "canonical", href: "https://tc.kyh.io" },
 ];
 
 export default function App() {

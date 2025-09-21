@@ -1,9 +1,8 @@
 node_modules
-
-/.cache
-/functions/\[\[path\]\].js
-/functions/\[\[path\]\].js.map
-/public/build
+.next
+/out
 .env
 
-/app/tailwind.css
+npm-debug.log*
+yarn-debug.log*
+.pnpm-debug.log*

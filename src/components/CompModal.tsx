@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useFetcher } from "@remix-run/react";
 import Select, { components } from "react-select";
 import NumberFormat from "react-number-format";
 import { useDebouncedCallback } from "use-debounce";
@@ -10,7 +9,7 @@ import {
   staticTextFormatProps,
 } from "~/lib/formProps";
 
-import type { OptionProps, MultiValue } from "react-select";
+import type { OptionProps, MultiValue, InputActionMeta } from "react-select";
 import type { Props as ModalProps } from "~/components/Modal";
 import type { CompHooksType } from "~/lib/comp";
 
@@ -42,20 +41,73 @@ export const CompModal = ({
   setShouldUpdate,
 }: Props) => {
   const [view, setView] = useState("estimate");
-  const search = useFetcher();
-  const companies = useFetcher();
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [companiesData, setCompaniesData] = useState<any[]>([]);
+  const [companiesLoading, setCompaniesLoading] = useState(false);
 
-  const loadOptions = useDebouncedCallback((value) => {
-    search.load(`/api/search?q=${value}`);
+  const loadOptions = useDebouncedCallback(async (value: string) => {
+    const query = value.trim();
+
+    if (!query) {
+      setSearchResults([]);
+      setSearchLoading(false);
+      return;
+    }
+
+    setSearchLoading(true);
+
+    try {
+      const response = await fetch(
+        `/api/search?q=${encodeURIComponent(query)}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch search results");
+      }
+
+      const data = await response.json();
+      setSearchResults(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error(error);
+      setSearchResults([]);
+    } finally {
+      setSearchLoading(false);
+    }
   }, 300);
 
-  const loadCompaniesData = (selected: MultiValue<any>) => {
+  const loadCompaniesData = async (selected: MultiValue<any>) => {
     const query = selected.map((s) => s.symbol).join(",");
-    companies.load(`/api/stock?s=${query}`);
+
+    if (!query) {
+      setCompaniesData([]);
+      setCompaniesLoading(false);
+      return;
+    }
+
+    setCompaniesLoading(true);
+
+    try {
+      const response = await fetch(
+        `/api/stock?s=${encodeURIComponent(query)}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch company data");
+      }
+
+      const data = await response.json();
+      setCompaniesData(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error(error);
+      setCompaniesData([]);
+    } finally {
+      setCompaniesLoading(false);
+    }
   };
 
   const handleClose = () => {
-    loadCompaniesData([]);
+    setCompaniesData([]);
     closeModal();
   };
 
@@ -214,7 +266,7 @@ export const CompModal = ({
                   Revenue Multiple
                 </h2>
                 <p className="mt-1">
-                  The revenue multiple is the ratio of the company's revenue
+                  The revenue multiple is the ratio of the company’s revenue
                   relative to its stock price. You can use your competitors
                   revenue multiple to estimate what your share value would be.
                 </p>
@@ -224,11 +276,11 @@ export const CompModal = ({
         </div>
       )}
       {view === "estimate" && (
-        <div className="flex flex-col gap-3 min-h-[360px]">
-          <div className="mt-3">
-            <p>
-              Estimate reasonable numbers for your equity value by looking at
-              competitors:
+      <div className="flex flex-col gap-3 min-h-[360px]">
+        <div className="mt-3">
+          <p>
+            Estimate reasonable numbers for your equity value by looking at
+            competitors:
             </p>
             <div className="mt-3">
               <FormField
@@ -242,22 +294,30 @@ export const CompModal = ({
                   classNamePrefix="react-select"
                   components={{ Option, IndicatorsContainer: () => null }}
                   isMulti
-                  isLoading={search.state !== "idle"}
+                  isLoading={searchLoading}
                   defaultValue={[]}
-                  onInputChange={loadOptions}
-                  options={search.data}
-                  onChange={loadCompaniesData}
-                  isSearchable={
-                    !companies.data ||
-                    (companies.data && companies.data.length < 3)
+                  onInputChange={(value, actionMeta: InputActionMeta) => {
+                    if (actionMeta.action === "input-change") {
+                      loadOptions(value);
+                    }
+                    return value;
+                  }}
+                  options={searchResults}
+                  onChange={(selected) =>
+                    loadCompaniesData((selected ?? []) as MultiValue<any>)
                   }
+                  isSearchable={companiesData.length < 3}
                   openMenuOnFocus={false}
                   openMenuOnClick={false}
                 />
               </FormField>
             </div>
           </div>
-          {companies.data && companies.data.length ? (
+          {companiesLoading && !companiesData.length ? (
+            <div className="flex justify-center items-center flex-1">
+              <h2 className="text-slate-700">Loading companies...</h2>
+            </div>
+          ) : companiesData.length ? (
             <table className="relative min-w-full divide-y divide-slate-600 text-sm">
               <thead className="font-semibold">
                 <tr>
@@ -311,7 +371,7 @@ export const CompModal = ({
                 </tr>
               </thead>
               <tbody className="text-slate-500">
-                {companies.data.map((c: any) => (
+                {companiesData.map((c: any) => (
                   <tr key={c.companyName}>
                     <td className="px-3 py-3.5 table-cell">{c.companyName}</td>
                     {isoCurrent && (

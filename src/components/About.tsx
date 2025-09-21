@@ -41,7 +41,7 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          Cash compensation is the simplest category to understand because it's
+          Cash compensation is the simplest category to understand because it’s
           what gets directly deposited into your bank account.
         </p>
         <p className="mt-4 text-xs uppercase text-slate-400">
@@ -54,7 +54,7 @@ export const defaultSteps: Step[] = [
             performance)
           </li>
           <li className="mt-2">
-            <strong>Bonuses</strong> - a single lump sum of cash (sometimes it's
+            <strong>Bonuses</strong> - a single lump sum of cash (sometimes it’s
             a yearly bonus, other times it could be a one time bonus at certain
             milestones)
           </li>
@@ -69,7 +69,7 @@ export const defaultSteps: Step[] = [
       <>
         <p>
           Equity compensation is more complex, you only recieve during certain
-          periods and it's difficult to get the exact dollar value of your
+          periods and it’s difficult to get the exact dollar value of your
           equity.
         </p>
         <p className="mt-4 text-xs uppercase text-slate-400">
@@ -123,7 +123,7 @@ export const defaultSteps: Step[] = [
     content: (
       <>
         <p>
-          If you don't know what numbers to use, we can offer reasonable
+          If you don’t know what numbers to use, we can offer reasonable
           defaults for you by looking at competitors.
         </p>
       </>

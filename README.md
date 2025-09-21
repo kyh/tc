@@ -14,7 +14,7 @@ This calculator normalizes all these different forms of compensation into dollar
 
 This project uses the following libraries and services:
 
-- Framework - [Remix](https://remix.run)
+- Framework - [Next.js](https://nextjs.org)
 - Styling - [Tailwind](https://tailwindcss.com)
 - API - [IEX](https://iexcloud.io/)
 - Hosting - [Cloudflare Pages](https://pages.cloudflare.com/)
@@ -22,9 +22,8 @@ This project uses the following libraries and services:
 ## Development
 
 ```sh
-npm i
-# start the remix dev server and wrangler
+npm install
 npm run dev
 ```
 
-Open up [http://127.0.0.1:8788](http://127.0.0.1:8788) and you should be ready to go!
+Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!

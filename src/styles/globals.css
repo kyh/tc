@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 div.react-select__control,
 div.react-select__control:hover,
 div.react-select__control.react-select__control--is-focused {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "~/components/Logo";
 import { About, useAbout } from "~/components/About";
 
@@ -6,10 +7,10 @@ export const Navigation = () => {
 
   return (
     <nav className="relative max-w-7xl mx-auto flex justify-between mb-10">
-      <a href="/" className="inline-flex py-5 px-3">
+      <Link href="/" className="inline-flex py-5 px-3">
         <span className="sr-only">Logo</span>
         <Logo />
-      </a>
+      </Link>
       <div className="flex items-center gap-5 pr-2 md:gap-6">
         <button
           type="button"

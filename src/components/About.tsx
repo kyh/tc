@@ -180,7 +180,7 @@ const Tooltip = ({
   isLastStep,
 }: TooltipRenderProps) => (
   <div
-    className="text-slate-200 text-sm shadow-xl bg-black rounded p-6 max-w-sm"
+    className="text-slate-200 text-sm shadow-xl bg-black rounded-sm p-6 max-w-sm"
     {...tooltipProps}
   >
     {step.title && (
@@ -204,7 +204,7 @@ const Tooltip = ({
       <div>
         {index > 0 && (
           <button
-            className="inline-flex items-center px-4 py-1.5 text-xs font-medium rounded text-emerald-600"
+            className="inline-flex items-center px-4 py-1.5 text-xs font-medium rounded-sm text-emerald-600"
             type="button"
             {...backProps}
           >
@@ -212,7 +212,7 @@ const Tooltip = ({
           </button>
         )}
         <button
-          className="inline-flex items-center px-4 py-1.5 text-xs font-medium rounded text-emerald-100 bg-emerald-900 hover:bg-emerald-700"
+          className="inline-flex items-center px-4 py-1.5 text-xs font-medium rounded-sm text-emerald-100 bg-emerald-900 hover:bg-emerald-700"
           type="button"
           {...primaryProps}
         >

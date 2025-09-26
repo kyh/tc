@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import NumberFormat from "react-number-format";
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { Navigation } from "~/components/Navigation";
@@ -19,20 +17,12 @@ export default function Index() {
 
   return (
     <>
-      <Head>
-        <title>Total Compensation Calculator</title>
-        <meta
-          name="description"
-          content="Understand your total compensation under current market conditions."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <Navigation />
       <main className="relative max-w-7xl mx-auto mb-20 md:grid md:grid-cols-5">
         <section className="md:col-span-2 px-8 -ml-5">
           <div className="title-section">
             <h1 className="text-2xl font-bold tracking-tight">
-              A layman’s Total Compensation Calculator
+              A layman's Total Compensation Calculator
             </h1>
             <p className="mt-3 text-slate-300">
               Understand your total compensation under current market
@@ -82,12 +72,11 @@ export default function Index() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Image
+        <img
           src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=347810&theme=dark"
           alt="Total Compensation Calculator - Your total compensation under current market conditions | Product Hunt"
           width={250}
           height={54}
-          priority
         />
       </a>
     </>

@@ -14,16 +14,16 @@ This calculator normalizes all these different forms of compensation into dollar
 
 This project uses the following libraries and services:
 
-- Framework - [Next.js](https://nextjs.org)
-- Styling - [Tailwind](https://tailwindcss.com)
-- API - [IEX](https://iexcloud.io/)
+- Framework - [Vite](https://vitejs.dev/) + [React](https://reactjs.org/)
+- Styling - [Tailwind CSS v4](https://tailwindcss.com)
+- Build Tool - [Vite](https://vitejs.dev/)
 - Hosting - [Cloudflare Pages](https://pages.cloudflare.com/)
 
 ## Development
 
 ```sh
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!

@@ -30,7 +30,7 @@ export const CompForm = ({ comp }: Props) => {
       <div>
         <fieldset className="cash-section">
           <legend className="text-sm text-slate-300">Cash Compensation</legend>
-          <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+          <div className="isolate -space-y-px rounded-md shadow-xs mt-2">
             <FormField
               className="rounded-b-none"
               label="Base Salary"
@@ -112,7 +112,7 @@ export const CompForm = ({ comp }: Props) => {
             </RadioGroup>
           </legend>
           {comp.shareType === "iso" && (
-            <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+            <div className="isolate -space-y-px rounded-md shadow-xs mt-2">
               <FormField
                 className="rounded-b-none"
                 label="Stock options per year"
@@ -142,7 +142,7 @@ export const CompForm = ({ comp }: Props) => {
             </div>
           )}
           {comp.shareType === "rsu" && (
-            <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+            <div className="isolate -space-y-px rounded-md shadow-xs mt-2">
               <FormField
                 label="Shares per year"
                 name="shares"
@@ -203,7 +203,7 @@ export const CompForm = ({ comp }: Props) => {
                     ? "Revenue Based"
                     : null}
                 </Listbox.Button>
-                <Listbox.Options className="absolute z-10 w-[200px] right-0 mt-1 overflow-auto text-sm bg-black rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Listbox.Options className="absolute z-10 w-[200px] right-0 mt-1 overflow-auto text-sm bg-black rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-hidden">
                   <Listbox.Option
                     value="current"
                     className={({ active }) =>
@@ -229,7 +229,7 @@ export const CompForm = ({ comp }: Props) => {
             </Listbox>
           </legend>
           {comp.shareCalcType === "current" && (
-            <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+            <div className="isolate -space-y-px rounded-md shadow-xs mt-2">
               <FormField
                 className="rounded-b-none"
                 label={
@@ -273,7 +273,7 @@ export const CompForm = ({ comp }: Props) => {
             </div>
           )}
           {comp.shareCalcType === "revenue" && (
-            <div className="isolate -space-y-px rounded-md shadow-sm mt-2">
+            <div className="isolate -space-y-px rounded-md shadow-xs mt-2">
               <FormField
                 className="rounded-b-none"
                 label="Shares Outstanding"

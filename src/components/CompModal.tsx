@@ -19,7 +19,7 @@ type Props = { setShouldUpdate: (t: boolean) => void } & CompHooksType &
 const Option = ({ children, ...rest }: OptionProps<any>) => {
   return (
     <components.Option {...rest}>
-      <span className="mr-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-slate-800">
+      <span className="mr-1 inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-medium bg-gray-100 text-slate-800">
         {rest.data.symbol}
       </span>
       <span>{children}</span>
@@ -57,23 +57,11 @@ export const CompModal = ({
 
     setSearchLoading(true);
 
-    try {
-      const response = await fetch(
-        `/api/search?q=${encodeURIComponent(query)}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch search results");
-      }
-
-      const data = await response.json();
-      setSearchResults(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
+    // Mock data for demonstration - API functionality removed
+    setTimeout(() => {
       setSearchResults([]);
-    } finally {
       setSearchLoading(false);
-    }
+    }, 500);
   }, 300);
 
   const loadCompaniesData = async (selected: MultiValue<any>) => {
@@ -87,23 +75,11 @@ export const CompModal = ({
 
     setCompaniesLoading(true);
 
-    try {
-      const response = await fetch(
-        `/api/stock?s=${encodeURIComponent(query)}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch company data");
-      }
-
-      const data = await response.json();
-      setCompaniesData(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
+    // Mock data for demonstration - API functionality removed
+    setTimeout(() => {
       setCompaniesData([]);
-    } finally {
       setCompaniesLoading(false);
-    }
+    }, 500);
   };
 
   const handleClose = () => {
@@ -143,10 +119,10 @@ export const CompModal = ({
           <h1>
             {view === "estimate" ? "Estimate Equity Value" : "Terminology"}
           </h1>
-          <span className="relative z-0 inline-flex shadow-sm rounded-md">
+          <span className="relative z-0 inline-flex shadow-xs rounded-md">
             <button
               type="button"
-              className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition ${
+              className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-hidden focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition ${
                 view === "estimate" ? "bg-slate-800" : ""
               }`}
               onClick={() => setView("estimate")}
@@ -174,7 +150,7 @@ export const CompModal = ({
             </button>
             <button
               type="button"
-              className={`-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition ${
+              className={`-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-600 bg-black text-sm hover:bg-emerald-900 focus:z-10 focus:outline-hidden focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition ${
                 view === "terminology" ? "bg-slate-800" : ""
               }`}
               onClick={() => setView("terminology")}
@@ -276,11 +252,11 @@ export const CompModal = ({
         </div>
       )}
       {view === "estimate" && (
-      <div className="flex flex-col gap-3 min-h-[360px]">
-        <div className="mt-3">
-          <p>
-            Estimate reasonable numbers for your equity value by looking at
-            competitors:
+        <div className="flex flex-col gap-3 min-h-[360px]">
+          <div className="mt-3">
+            <p>
+              Estimate reasonable numbers for your equity value by looking at
+              competitors:
             </p>
             <div className="mt-3">
               <FormField
@@ -431,7 +407,7 @@ export const CompModal = ({
                     <td className="py-3.5 table-cell text-right">
                       <button
                         type="button"
-                        className="text-white inline-flex items-center px-2 py-1 rounded-md border border-slate-600 text-xs hover:bg-emerald-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                        className="text-white inline-flex items-center px-2 py-1 rounded-md border border-slate-600 text-xs hover:bg-emerald-900 focus:z-10 focus:outline-hidden focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition"
                         onClick={() => handleUse(c)}
                       >
                         Use
